@@ -1,0 +1,166 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CodeUtils : MonoBehaviour
+{
+
+    //Ignore this region
+    #region ToWorkVariables
+    bool HaveShooted;
+    #endregion
+
+    #region FPSMove
+    #region Update
+    /// <summary>
+    /// This function must be called in the Update, it sets the datas to work with the "FPSMoveFixedUpdate" function. Use a variable to get the "FinalMove" Vector.
+    /// </summary>
+    /// <param name="Speed"></param>
+    /// <param name="DirectionReferenceObject"></param>
+    /// <returns></returns>
+    public Vector3 FPSMoveUpdate(float Speed, GameObject DirectionReferenceObject)
+    {
+
+        float XMovementAxis = Input.GetAxisRaw("Horizontal");
+        float YMovementAxis = Input.GetAxisRaw("Vertical");
+        Vector3 XMove = DirectionReferenceObject.transform.right * XMovementAxis;
+        Vector3 YMove = DirectionReferenceObject.transform.forward * YMovementAxis;
+        Vector3 FinalMove = (XMove + YMove) * Speed * Time.fixedDeltaTime;
+
+        return FinalMove;
+
+    }
+    #endregion
+
+    #region FixedUpdate
+    /// <summary>
+    /// This function must be called in the FixedUpdate, it performs the datas of the "FPSMoveUpdate" function in fact it works with it.
+    /// </summary>
+    /// <param name="Speed"></param>
+    /// <param name="DirectionReferenceObject"></param>
+    /// <returns></returns>
+    public void FPSMoveFixedUpdate(Rigidbody ObjectToMoveRigidbody, Vector3 FinalMove)
+    {
+
+
+        ObjectToMoveRigidbody.MovePosition(ObjectToMoveRigidbody.position + FinalMove);
+
+    }
+    #endregion
+    #endregion
+
+    #region CameraRotation
+    #region Update
+    /// <summary>
+    /// This function must be called in the Update, it sets the datas to work with the "CameraRotationFixedUpdate" function. Use a variable to get the "MagazinVector" Vector.
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 CameraRotationUpdate()
+    {
+
+        float XRot = Input.GetAxisRaw("Mouse X");
+        float YRot = Input.GetAxisRaw("Mouse Y");
+        Vector3 YRotation = new Vector3(0f, XRot, 0f);
+        Vector3 XRotation = new Vector3(YRot, 0f, 0f);
+        Vector3 MagazineVector = new Vector3(XRotation.x, YRotation.y, 0f);
+        return MagazineVector;
+
+    }
+    #endregion
+
+    #region FixedUpdate
+    /// <summary>
+    /// This function must be called in the FixedUpdate, it performs the datas of the "CameraRotationFixedUpdate" function in fact it works with it.
+    /// </summary>
+    /// <param name="RotateX"></param>
+    /// <param name="RotateY"></param>
+    /// <param name="RigidbodyRotateX"></param>
+    /// <param name="RigidbodyRotateY"></param>
+    /// <param name="ObjectToRotateX"></param>
+    /// <param name="ObjectToRotateY"></param>
+    /// <param name="MagazineVector"></param>
+    /// <param name="LookSens"></param>
+    public void CameraRotationFixedUpdate(bool RotateX, bool RotateY, bool RigidbodyRotateX, bool RigidbodyRotateY, GameObject ObjectToRotateX, GameObject ObjectToRotateY, Vector3 MagazineVector, float LookSens)
+    {
+
+        if (RotateX)
+        {
+
+            if (RigidbodyRotateX)
+            {
+
+                Rigidbody objectRigidbody = ObjectToRotateX.GetComponent<Rigidbody>();
+                if (objectRigidbody != null)
+                {
+
+                    objectRigidbody.MoveRotation(objectRigidbody.rotation * Quaternion.Euler(MagazineVector.x * LookSens * Time.fixedDeltaTime, 0f, 0f));
+
+                }
+
+            }
+            else
+            {
+
+                ObjectToRotateX.transform.Rotate(-MagazineVector.x * LookSens * Time.fixedDeltaTime, 0f , 0f);
+
+            }
+
+        }
+        if (RotateY)
+        {
+
+            if (RigidbodyRotateY)
+            {
+
+                Rigidbody objectRigidbody = ObjectToRotateY.GetComponent<Rigidbody>();
+                if (objectRigidbody != null)
+                {
+
+                    objectRigidbody.MoveRotation(objectRigidbody.rotation * Quaternion.Euler(0f, MagazineVector.y * LookSens * Time.fixedDeltaTime, 0f));
+
+                }
+
+            }
+            else
+            {
+
+                ObjectToRotateY.transform.Rotate(0f, MagazineVector.y * LookSens * Time.fixedDeltaTime, 0f);
+
+            }
+
+        }
+
+    }
+    #endregion
+    #endregion
+
+    //WORK IN PROGRESS!
+    #region GetRaycastShoot
+    #region Update
+        //Nothing    
+    #endregion
+
+    #region FixedUpdate
+    public RaycastHit RaycastShootFixedUpdate(GameObject FirePoint, float Range, LayerMask layerMask)
+    {
+        RaycastHit ShootingRay;
+
+        
+        if (Physics.Raycast(FirePoint.transform.position, FirePoint.transform.forward, out ShootingRay, Range, layerMask))
+        {
+            
+
+
+        }
+
+        return ShootingRay;
+
+    }
+
+    #endregion
+    #endregion
+
+    //Ignore this region
+    #region ToWorkFunctions
+    #endregion
+}

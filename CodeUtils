@@ -10,14 +10,22 @@ public class CodeUtils : MonoBehaviour
     bool HaveShooted;
     #endregion
 
+    //Functions region
+    #region Functions
+
+    //Completed
     #region FPSMove
     #region Update
+    #region Summary
     /// <summary>
-    /// This function must be called in the Update, it sets the datas to work with the "FPSMoveFixedUpdate" function. Use a variable to get the "FinalMove" Vector.
+    /// This function must be called in the Update, it sets the datas to work with the "FPSMoveFixedUpdate" function. It needs a float value for the speed 
+    /// and a GameObject value to use for the local axis. It returns a Vector3 value that you can use with the "FPSMoveFixedUpdate" function.
+    /// You can ctrl + click on this function name to see the code!
     /// </summary>
     /// <param name="Speed"></param>
     /// <param name="DirectionReferenceObject"></param>
-    /// <returns></returns>
+    /// <returns>"FinalMove" to use with the "FPSMoveFixedUpdate" function</returns>
+    #endregion
     public Vector3 FPSMoveUpdate(float Speed, GameObject DirectionReferenceObject)
     {
 
@@ -33,12 +41,17 @@ public class CodeUtils : MonoBehaviour
     #endregion
 
     #region FixedUpdate
+    #region Summary
     /// <summary>
-    /// This function must be called in the FixedUpdate, it performs the datas of the "FPSMoveUpdate" function in fact it works with it.
+    /// This function must be called in the FixedUpdate, it performs the datas of the "FPSMoveUpdate" function. It needs a RigidBody value to understand which
+    /// object to move and a Vector3 to understand in which direction to move the player, you can get it from the "FPSMoveFixedUpdate" function. It doesn't
+    /// return anything.
+    /// You can ctrl + click on this function name to see the code!
     /// </summary>
     /// <param name="Speed"></param>
     /// <param name="DirectionReferenceObject"></param>
-    /// <returns></returns>
+    /// <returns>Nothing</returns>
+    #endregion
     public void FPSMoveFixedUpdate(Rigidbody ObjectToMoveRigidbody, Vector3 FinalMove)
     {
 
@@ -49,12 +62,17 @@ public class CodeUtils : MonoBehaviour
     #endregion
     #endregion
 
+    //Completed
     #region CameraRotation
     #region Update
+    #region Summary
     /// <summary>
-    /// This function must be called in the Update, it sets the datas to work with the "CameraRotationFixedUpdate" function. Use a variable to get the "MagazinVector" Vector.
+    /// This function must be called in the Update, it sets the datas to work with the "CameraRotationFixedUpdate" function. It doesn't need anything. It returns 
+    /// a Vector3 value that you can use with the "CameraRotationFixedUpdate" function
+    ///  You can ctrl + click on this function name to see the code!
     /// </summary>
-    /// <returns></returns>
+    /// <returns>"MagazinVector" to use with the "CameraRotationFixedUpdate" function</returns>
+    #endregion
     public Vector3 CameraRotationUpdate()
     {
 
@@ -69,8 +87,12 @@ public class CodeUtils : MonoBehaviour
     #endregion
 
     #region FixedUpdate
+    #region Summary
     /// <summary>
-    /// This function must be called in the FixedUpdate, it performs the datas of the "CameraRotationFixedUpdate" function in fact it works with it.
+    /// This function must be called in the FixedUpdate, it performs the datas of the "CameraRotationUpdate". It needs 4 bool values to understand
+    /// which type of movement you want from it, 2 GameObject values to understand which object to move in which direction, a Vector value that
+    /// you can get from the "CameraRotationUpdate" function and a float value for the Sensitivity of the mouse.
+    ///  You can ctrl + click on this function name to see the code!
     /// </summary>
     /// <param name="RotateX"></param>
     /// <param name="RotateY"></param>
@@ -80,6 +102,8 @@ public class CodeUtils : MonoBehaviour
     /// <param name="ObjectToRotateY"></param>
     /// <param name="MagazineVector"></param>
     /// <param name="LookSens"></param>
+    /// <returns>Nothing</returns>
+    #endregion
     public void CameraRotationFixedUpdate(bool RotateX, bool RotateY, bool RigidbodyRotateX, bool RigidbodyRotateY, GameObject ObjectToRotateX, GameObject ObjectToRotateY, Vector3 MagazineVector, float LookSens)
     {
 
@@ -137,10 +161,21 @@ public class CodeUtils : MonoBehaviour
     //WORK IN PROGRESS!
     #region GetRaycastShoot
     #region Update
-        //Nothing    
+    //Nothing    
     #endregion
 
     #region FixedUpdate
+    #region Summary
+    /// <summary>
+    /// This function must be called in the FixedUpdate. It needs a GameObject value to understand from where to shoot the raycast, a float value
+    /// to understand how far the raycast can go and a LayerMask value to understand which objects it can collide with.
+    /// It returns a RayCastHit value that you can use with some other pre-made function that support it.
+    /// You can ctrl + click on this function name to see the code!
+    /// </summary>
+    /// <param name="Speed"></param>
+    /// <param name="DirectionReferenceObject"></param>
+    /// <returns>"ShootingRay" to use with some other pre-made function that support it.</returns>
+    #endregion
     public RaycastHit RaycastShootFixedUpdate(GameObject FirePoint, float Range, LayerMask layerMask)
     {
         RaycastHit ShootingRay;
@@ -157,6 +192,7 @@ public class CodeUtils : MonoBehaviour
 
     }
 
+    #endregion
     #endregion
     #endregion
 
